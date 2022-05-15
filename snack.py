@@ -1,4 +1,3 @@
-from tkinter import LEFT
 from turtle import Turtle
 POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 FORWARD_DISTANCE = 20
@@ -10,16 +9,24 @@ DOWN = 270
 class Snack():
     def __init__(self):
         self.snack_list = []
-        self.make_snack()
+        self.init_snack()
         self.head = self.snack_list[0]
-    def make_snack(self):
-        for position in POSITIONS:
-            new_snack = Turtle("square")
-            new_snack.color("white")
-            new_snack.penup()
-            new_snack.goto(position)
-            self.snack_list.append(new_snack)
 
+    def add_snack(self, position):
+        new_snack = Turtle("square")
+        new_snack.color("white")
+        new_snack.penup()
+        new_snack.goto(position)
+        self.snack_list.append(new_snack)
+
+    def init_snack(self):
+        for position in POSITIONS:
+            self.add_snack(position)
+    
+    def extend_snack(self):
+        position = self.snack_list[-1].position()
+        self.add_snack(position)
+    
     def move(self):
         for snack_num in range(len(self.snack_list)-1, 0, -1):
             new_x = self.snack_list[snack_num-1].xcor()
